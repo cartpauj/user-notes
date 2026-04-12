@@ -25,6 +25,16 @@ All you'll need to do to get this setup is:
 That's it!
 
 == Changelog ==
+= 2.0.0 =
+* Rewrote notes as a timestamped log: add multiple notes per user, each with author and timestamp
+* Star notes to pin them to the top of the list
+* Inline edit and permanent delete (delete requires `delete_users` capability and confirms before removing)
+* Users can no longer view notes on their own profile
+* Users list column now shows note count + latest excerpt, with a star indicator when any note is starred
+* New `{prefix}user_notes` database table; existing notes are migrated automatically and attributed to the lowest-ID administrator
+* Legacy HTML notes are converted to plain text on migration; original HTML preserved in `_user-notes-note-legacy-v1` user meta as a safety net
+* Bumped minimum architecture; requires WordPress 6.0+
+
 = 1.0.5 =
 * Ensure compatibility with WP 6.9
 

@@ -23,10 +23,17 @@ GNU General Public License for more details.
 
 if (!defined('ABSPATH')) exit;
 
-define('USER_NOTES_VERSION', '2.0.0');
-define('USER_NOTES_DB_VERSION', '2.0');
 define('USER_NOTES_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('USER_NOTES_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('USER_NOTES_PLUGIN_FILE', __FILE__);
+
+function user_notes_version() {
+    static $v = null;
+    if ($v !== null) return $v;
+    $data = get_file_data(USER_NOTES_PLUGIN_FILE, array('Version' => 'Version'));
+    $v = !empty($data['Version']) ? $data['Version'] : '0.0.0';
+    return $v;
+}
 
 require_once USER_NOTES_PLUGIN_DIR . 'includes/class-notes-repo.php';
 require_once USER_NOTES_PLUGIN_DIR . 'includes/caps.php';
@@ -43,7 +50,7 @@ function user_notes_activate() {
 
 add_action('plugins_loaded', function () {
     // Safety: run migration on upgrade too.
-    if (get_option('user_notes_db_version') !== USER_NOTES_DB_VERSION) {
+    if (get_option('user_notes_db_version') !== user_notes_version()) {
         User_Notes_Repo::install_table();
         user_notes_run_migration_if_needed();
     }
@@ -53,8 +60,8 @@ add_action('admin_enqueue_scripts', function ($hook) {
     if (!in_array($hook, array('profile.php', 'user-edit.php', 'users.php'), true)) return;
     if (!user_notes_current_user_can_view()) return;
 
-    wp_enqueue_style('user-notes', USER_NOTES_PLUGIN_URL . 'assets/user-notes.css', array(), USER_NOTES_VERSION);
-    wp_enqueue_script('user-notes', USER_NOTES_PLUGIN_URL . 'assets/user-notes.js', array('jquery'), USER_NOTES_VERSION, true);
+    wp_enqueue_style('user-notes', USER_NOTES_PLUGIN_URL . 'assets/user-notes.css', array(), user_notes_version());
+    wp_enqueue_script('user-notes', USER_NOTES_PLUGIN_URL . 'assets/user-notes.js', array('jquery'), user_notes_version(), true);
     wp_localize_script('user-notes', 'UserNotes', array(
         'ajaxUrl'     => admin_url('admin-ajax.php'),
         'nonce'       => wp_create_nonce('user_notes_ajax'),

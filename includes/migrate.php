@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 function user_notes_run_migration_if_needed() {
-    if (get_option('user_notes_db_version') === USER_NOTES_DB_VERSION) return;
+    if (get_option('user_notes_db_version') === user_notes_version()) return;
 
     global $wpdb;
 
@@ -27,7 +27,7 @@ function user_notes_run_migration_if_needed() {
         }
     }
 
-    update_option('user_notes_db_version', USER_NOTES_DB_VERSION);
+    update_option('user_notes_db_version', user_notes_version());
 }
 
 function user_notes_html_to_plaintext($html) {
