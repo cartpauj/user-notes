@@ -1,0 +1,20 @@
+#user-notes-app { max-width: 720px; margin-top: 8px; }
+#user-notes-app .user-notes-add { background: #fff; border: 1px solid #dcdcde; border-radius: 4px; padding: 10px; margin-bottom: 14px; }
+#user-notes-app .user-notes-add textarea { width: 100%; box-sizing: border-box; }
+#user-notes-app .user-notes-add-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+#user-notes-app .user-notes-list { list-style: none; margin: 0; padding: 0; }
+#user-notes-app .user-notes-item { background: #fff; border: 1px solid #dcdcde; border-left-width: 3px; border-radius: 3px; padding: 10px 12px; margin-bottom: 8px; }
+#user-notes-app .user-notes-item.is-starred { border-left-color: #d4a017; background: #fffbe6; }
+#user-notes-app .user-notes-meta { font-size: 12px; color: #555; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#user-notes-app .user-notes-meta .user-notes-actions { margin-left: auto; }
+#user-notes-app .user-notes-star { background: none; border: 0; cursor: pointer; padding: 0; color: #8c8f94; }
+#user-notes-app .user-notes-item.is-starred .user-notes-star { color: #d4a017; }
+#user-notes-app .user-notes-author { font-weight: 600; color: #1d2327; }
+#user-notes-app .user-notes-edited { color: #888; font-style: italic; }
+#user-notes-app .user-notes-body { margin-top: 6px; }
+#user-notes-app .user-notes-body p:first-child { margin-top: 0; }
+#user-notes-app .user-notes-body p:last-child { margin-bottom: 0; }
+#user-notes-app .user-notes-edit-area textarea { width: 100%; box-sizing: border-box; }
+#user-notes-app .user-notes-edit-actions { margin-top: 6px; display: flex; gap: 6px; }
+#user-notes-app .user-notes-empty { color: #666; font-style: italic; }
+#user-notes-app .is-busy { opacity: 0.6; pointer-events: none; }
