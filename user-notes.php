@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: User Notes
-Plugin URI: http://cartpauj.com
+Plugin URI: https://github.com/cartpauj/user-notes
 Description: Keep private notes about each of your users that only Administrators can see.
-Version: 1.0.4
+Version: 1.0.5
 Author: Cartpauj
-Author URI: http://cartpauj.com
+Author URI: https//github.com/cartpauj
 Text Domain: user-notes
 
 This program is free software; you can redistribute it and/or modify

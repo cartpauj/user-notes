@@ -2,8 +2,8 @@
 Contributors: cartpauj
 Tags: user, note, private notes, admin notes, secure notes
 Requires at least: 6.0
-Tested up to: 6.8
-Stable tag: 1.0.4
+Tested up to: 6.9
+Stable tag: 1.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -25,6 +25,8 @@ All you'll need to do to get this setup is:
 That's it!
 
 == Changelog ==
+= 1.0.5 =
+* Ensure compatibility with WP 6.9
 
 = 1.0.4 =
 * Security hardening - added CSRF protection
