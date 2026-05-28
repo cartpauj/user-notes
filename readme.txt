@@ -2,8 +2,8 @@
 Contributors: cartpauj
 Tags: user, note, private notes, admin notes, secure notes
 Requires at least: 6.0
-Tested up to: 6.9
-Stable tag: 2.0.0
+Tested up to: 7.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,9 @@ All you'll need to do to get this setup is:
 That's it!
 
 == Changelog ==
+= 2.0.1 =
+* Ensure WP 7.0 Compat
+
 = 2.0.0 =
 * Rewrote notes as a timestamped log: add multiple notes per user, each with author and timestamp
 * Star notes to pin them to the top of the list

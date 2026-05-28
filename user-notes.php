@@ -3,8 +3,8 @@
 Plugin Name: User Notes
 Plugin URI: https://github.com/cartpauj/user-notes
 Description: Keep private, timestamped notes about each of your users that only Administrators can see.
-Version: 2.0.0
-Author: Cartpauj
+Version: 2.0.1
+Author: cartpauj
 Author URI: https://github.com/cartpauj
 Text Domain: user-notes
 License: GPLv2 or later
