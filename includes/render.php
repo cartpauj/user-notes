@@ -9,12 +9,12 @@ function user_notes_render_profile_section($wp_user) {
     ?>
     <h3><?php esc_html_e('User Notes', 'user-notes'); ?></h3>
 
-    <div id="user-notes-app" data-user-id="<?php echo esc_attr($wp_user->ID); ?>" data-can-delete="<?php echo $can_delete ? '1' : '0'; ?>">
+    <div id="user-notes-app" class="user-notes-app" data-user-id="<?php echo esc_attr($wp_user->ID); ?>" data-can-delete="<?php echo $can_delete ? '1' : '0'; ?>">
         <div class="user-notes-add">
-            <textarea id="user-notes-new-body" rows="3" placeholder="<?php esc_attr_e('Add a note…', 'user-notes'); ?>"></textarea>
+            <textarea class="user-notes-new-body" rows="3" placeholder="<?php esc_attr_e('Add a note…', 'user-notes'); ?>"></textarea>
             <div class="user-notes-add-actions">
-                <label><input type="checkbox" id="user-notes-new-starred" /> <?php esc_html_e('Star this note', 'user-notes'); ?></label>
-                <button type="button" class="button button-primary" id="user-notes-add-btn"><?php esc_html_e('Add Note', 'user-notes'); ?></button>
+                <label><input type="checkbox" class="user-notes-new-starred" /> <?php esc_html_e('Star this note', 'user-notes'); ?></label>
+                <button type="button" class="button button-primary user-notes-add-btn"><?php esc_html_e('Add Note', 'user-notes'); ?></button>
             </div>
         </div>
 
@@ -69,26 +69,54 @@ add_action('manage_users_custom_column', function ($val, $col_name, $user_id) {
     if ($col_name !== 'user_notes_note') return $val;
     if (!user_notes_current_user_can_view($user_id)) return '—';
 
+    return user_notes_column_html($user_id);
+}, 10, 3);
+
+/**
+ * Markup for the Users-list Notes cell. Kept as a function so its output is
+ * mirrored by the JS that re-renders the cell after edits in the modal.
+ */
+function user_notes_column_html($user_id) {
     $count = User_Notes_Repo::count_for_user($user_id);
     $edit_url = admin_url('user-edit.php?user_id=' . $user_id . '#user-notes-app');
 
     if (!$count) {
-        return '<a href="' . esc_url($edit_url) . '">' . esc_html__('Add Note', 'user-notes') . '</a>';
+        return '<a class="user-notes-col-add" href="' . esc_url($edit_url) . '" data-user-id="' . esc_attr($user_id) . '">'
+            . '<span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span>'
+            . esc_html__('Add Note', 'user-notes') . '</a>';
     }
 
+    $starred = User_Notes_Repo::count_starred_for_user($user_id);
+
+    // Latest note as a hover tooltip — detail without cluttering the cell.
     $latest = User_Notes_Repo::latest_for_user($user_id);
-    $starred = User_Notes_Repo::any_starred_for_user($user_id);
     $excerpt = '';
     if ($latest) {
         $plain = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($latest->body)));
-        $excerpt = function_exists('mb_substr') ? mb_substr($plain, 0, 80) : substr($plain, 0, 80);
-        if (mb_strlen($plain) > 80) $excerpt .= '…';
+        $excerpt = function_exists('mb_substr') ? mb_substr($plain, 0, 120) : substr($plain, 0, 120);
+        if (mb_strlen($plain) > 120) $excerpt .= '…';
     }
 
-    $star_icon = $starred ? '<span class="dashicons dashicons-star-filled" style="color:#d4a017;"></span> ' : '';
-    /* translators: %d: number of notes */
-    $label = sprintf(_n('%d note', '%d notes', $count, 'user-notes'), $count);
+    $html  = '<a class="user-notes-col" href="' . esc_url($edit_url) . '" data-user-id="' . esc_attr($user_id) . '"'
+           . ($excerpt ? ' title="' . esc_attr($excerpt) . '"' : '') . '>';
 
-    return $star_icon . '<a href="' . esc_url($edit_url) . '"><strong>' . esc_html($label) . '</strong></a>'
-        . ($excerpt ? '<br><span style="color:#666;">' . esc_html($excerpt) . '</span>' : '');
-}, 10, 3);
+    /* translators: %s: number of notes */
+    $count_label = sprintf(_n('%s note', '%s notes', $count, 'user-notes'), number_format_i18n($count));
+    $html .= '<span class="user-notes-badge user-notes-badge-count" title="' . esc_attr($count_label) . '">'
+           .   '<span class="dashicons dashicons-admin-comments" aria-hidden="true"></span>'
+           .   '<span class="user-notes-badge-num">' . esc_html(number_format_i18n($count)) . '</span>'
+           . '</span>';
+
+    if ($starred > 0) {
+        /* translators: %s: number of starred notes */
+        $star_label = sprintf(_n('%s starred', '%s starred', $starred, 'user-notes'), number_format_i18n($starred));
+        $html .= '<span class="user-notes-badge user-notes-badge-star" title="' . esc_attr($star_label) . '">'
+               .   '<span class="dashicons dashicons-star-filled" aria-hidden="true"></span>'
+               .   '<span class="user-notes-badge-num">' . esc_html(number_format_i18n($starred)) . '</span>'
+               . '</span>';
+    }
+
+    $html .= '</a>';
+
+    return $html;
+}

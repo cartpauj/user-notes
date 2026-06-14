@@ -3,7 +3,7 @@ Contributors: cartpauj
 Tags: user, note, private notes, admin notes, secure notes
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,11 @@ All you'll need to do to get this setup is:
 That's it!
 
 == Changelog ==
+= 2.1.0 =
+* Users list column now shows separate note-count and starred-count bubbles instead of an excerpt
+* Click the Notes column to open a popup that lets you read, add, edit, star and delete a user's notes without leaving the Users list
+* Latest note still available as a hover tooltip on the column
+
 = 2.0.1 =
 * Ensure WP 7.0 Compat
 

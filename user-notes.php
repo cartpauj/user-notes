@@ -3,7 +3,7 @@
 Plugin Name: User Notes
 Plugin URI: https://github.com/cartpauj/user-notes
 Description: Keep private, timestamped notes about each of your users that only Administrators can see.
-Version: 2.0.1
+Version: 2.1.0
 Author: cartpauj
 Author URI: https://github.com/cartpauj
 Text Domain: user-notes
@@ -72,6 +72,18 @@ add_action('admin_enqueue_scripts', function ($hook) {
             'error'         => __('Something went wrong. Please try again.', 'user-notes'),
             'edited'        => __('edited', 'user-notes'),
             'by'            => __('by', 'user-notes'),
+            'addNote'       => __('Add Note', 'user-notes'),
+            'addPlaceholder' => __('Add a note…', 'user-notes'),
+            'starThis'      => __('Star this note', 'user-notes'),
+            'noNotes'       => __('No notes yet.', 'user-notes'),
+            'loading'       => __('Loading…', 'user-notes'),
+            'notesFor'      => __('Notes for %s', 'user-notes'),
+            'close'         => __('Close', 'user-notes'),
+            'edit'          => __('Edit', 'user-notes'),
+            'del'           => __('Delete', 'user-notes'),
+            'save'          => __('Save', 'user-notes'),
+            'cancel'        => __('Cancel', 'user-notes'),
+            'toggleStar'    => __('Toggle star', 'user-notes'),
         ),
     ));
 });

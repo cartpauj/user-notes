@@ -1,20 +1,52 @@
-#user-notes-app { max-width: 720px; margin-top: 8px; }
-#user-notes-app .user-notes-add { background: #fff; border: 1px solid #dcdcde; border-radius: 4px; padding: 10px; margin-bottom: 14px; }
-#user-notes-app .user-notes-add textarea { width: 100%; box-sizing: border-box; }
-#user-notes-app .user-notes-add-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-#user-notes-app .user-notes-list { list-style: none; margin: 0; padding: 0; }
-#user-notes-app .user-notes-item { background: #fff; border: 1px solid #dcdcde; border-left-width: 3px; border-radius: 3px; padding: 10px 12px; margin-bottom: 8px; }
-#user-notes-app .user-notes-item.is-starred { border-left-color: #d4a017; background: #fffbe6; }
-#user-notes-app .user-notes-meta { font-size: 12px; color: #555; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-#user-notes-app .user-notes-meta .user-notes-actions { margin-left: auto; }
-#user-notes-app .user-notes-star { background: none; border: 0; cursor: pointer; padding: 0; color: #8c8f94; }
-#user-notes-app .user-notes-item.is-starred .user-notes-star { color: #d4a017; }
-#user-notes-app .user-notes-author { font-weight: 600; color: #1d2327; }
-#user-notes-app .user-notes-edited { color: #888; font-style: italic; }
-#user-notes-app .user-notes-body { margin-top: 6px; }
-#user-notes-app .user-notes-body p:first-child { margin-top: 0; }
-#user-notes-app .user-notes-body p:last-child { margin-bottom: 0; }
-#user-notes-app .user-notes-edit-area textarea { width: 100%; box-sizing: border-box; }
-#user-notes-app .user-notes-edit-actions { margin-top: 6px; display: flex; gap: 6px; }
-#user-notes-app .user-notes-empty { color: #666; font-style: italic; }
-#user-notes-app .is-busy { opacity: 0.6; pointer-events: none; }
+.user-notes-app { max-width: 720px; margin-top: 8px; }
+.user-notes-app .user-notes-add { background: #fff; border: 1px solid #dcdcde; border-radius: 4px; padding: 10px; margin-bottom: 14px; }
+.user-notes-app .user-notes-add textarea { width: 100%; box-sizing: border-box; }
+.user-notes-app .user-notes-add-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+.user-notes-app .user-notes-list { list-style: none; margin: 0; padding: 0; }
+.user-notes-app .user-notes-item { background: #fff; border: 1px solid #dcdcde; border-left-width: 3px; border-radius: 3px; padding: 10px 12px; margin-bottom: 8px; }
+.user-notes-app .user-notes-item.is-starred { border-left-color: #d4a017; background: #fffbe6; }
+.user-notes-app .user-notes-meta { font-size: 12px; color: #555; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.user-notes-app .user-notes-meta .user-notes-actions { margin-left: auto; }
+.user-notes-app .user-notes-star { background: none; border: 0; cursor: pointer; padding: 0; color: #8c8f94; }
+.user-notes-app .user-notes-item.is-starred .user-notes-star { color: #d4a017; }
+.user-notes-app .user-notes-author { font-weight: 600; color: #1d2327; }
+.user-notes-app .user-notes-edited { color: #888; font-style: italic; }
+.user-notes-app .user-notes-body { margin-top: 6px; }
+.user-notes-app .user-notes-body p:first-child { margin-top: 0; }
+.user-notes-app .user-notes-body p:last-child { margin-bottom: 0; }
+.user-notes-app .user-notes-edit-area textarea { width: 100%; box-sizing: border-box; }
+.user-notes-app .user-notes-edit-actions { margin-top: 6px; display: flex; gap: 6px; }
+.user-notes-app .user-notes-empty { color: #666; font-style: italic; }
+.user-notes-app .is-busy { opacity: 0.6; pointer-events: none; }
+
+/* Users list column */
+.wp-list-table .column-user_notes_note { width: 12%; }
+.user-notes-col { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.user-notes-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px 2px 7px; border: 1px solid #dcdcde; border-radius: 999px; background: #f6f7f7; line-height: 1.6; }
+.user-notes-col:hover .user-notes-badge { border-color: #c3c4c7; background: #f0f0f1; }
+.user-notes-badge .dashicons { font-size: 15px; width: 15px; height: 15px; }
+.user-notes-badge-num { font-weight: 600; font-size: 12px; color: #1d2327; }
+.user-notes-badge-count .dashicons { color: #2271b1; }
+.user-notes-badge-star { background: #fffbe6; border-color: #f0e1a8; }
+.user-notes-col:hover .user-notes-badge-star { background: #fff7d6; border-color: #e6d384; }
+.user-notes-badge-star .dashicons { color: #d4a017; }
+.user-notes-col-add { display: inline-flex; align-items: center; gap: 3px; color: #2271b1; text-decoration: none; }
+.user-notes-col-add:hover { color: #135e96; }
+.user-notes-col-add .dashicons { font-size: 16px; width: 16px; height: 16px; }
+
+/* Users-list modal */
+.user-notes-modal { display: none; position: fixed; inset: 0; z-index: 100000; }
+.user-notes-modal.is-open { display: block; }
+.user-notes-modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+.user-notes-modal-dialog { position: relative; margin: 6vh auto 0; width: 92%; max-width: 680px; max-height: 84vh; display: flex; flex-direction: column; background: #fff; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); overflow: hidden; }
+.user-notes-modal-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid #dcdcde; }
+.user-notes-modal-avatar { width: 32px; height: 32px; border-radius: 50%; flex: 0 0 auto; }
+.user-notes-modal-title { margin: 0; font-size: 16px; line-height: 1.3; flex: 1 1 auto; }
+.user-notes-modal-close { margin-left: auto; background: none; border: 0; cursor: pointer; color: #646970; padding: 4px; display: flex; }
+.user-notes-modal-close:hover { color: #1d2327; }
+.user-notes-modal-close .dashicons { font-size: 22px; width: 22px; height: 22px; }
+.user-notes-modal-body { padding: 16px; overflow-y: auto; }
+.user-notes-modal-loading { text-align: center; padding: 30px 0; }
+.user-notes-modal-loading .spinner { float: none; }
+.user-notes-modal-body .user-notes-app { max-width: none; margin-top: 0; }
+body.user-notes-modal-open { overflow: hidden; }

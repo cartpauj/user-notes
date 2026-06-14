@@ -19,6 +19,27 @@ function user_notes_note_payload($note) {
     );
 }
 
+add_action('wp_ajax_user_notes_list', function () {
+    check_ajax_referer('user_notes_ajax', 'nonce');
+
+    $user_id = isset($_POST['user_id']) ? (int) sanitize_text_field(wp_unslash($_POST['user_id'])) : 0;
+    if (!$user_id) wp_send_json_error(array('message' => 'bad_user'), 400);
+    if (!user_notes_current_user_can_view($user_id)) wp_send_json_error(array('message' => 'forbidden'), 403);
+
+    $notes = User_Notes_Repo::get_for_user($user_id);
+    $u = get_userdata($user_id);
+
+    wp_send_json_success(array(
+        'user_id'    => $user_id,
+        'user_name'  => $u ? $u->display_name : sprintf('#%d', $user_id),
+        'user_login' => $u ? $u->user_login : '',
+        'avatar'     => get_avatar_url($user_id, array('size' => 48)),
+        'can_edit'   => user_notes_current_user_can_edit($user_id),
+        'can_delete' => user_notes_current_user_can_delete($user_id),
+        'notes'      => array_map('user_notes_note_payload', $notes),
+    ));
+});
+
 add_action('wp_ajax_user_notes_add', function () {
     check_ajax_referer('user_notes_ajax', 'nonce');
 

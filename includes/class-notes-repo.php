@@ -155,17 +155,21 @@ class User_Notes_Repo {
         return $row;
     }
 
-    public static function any_starred_for_user($user_id) {
+    public static function count_starred_for_user($user_id) {
         $user_id = (int) $user_id;
         $key = 'starred_' . $user_id;
         $cached = wp_cache_get($key, self::CACHE_GROUP);
-        if (false !== $cached) return (bool) $cached;
+        if (false !== $cached) return (int) $cached;
 
         global $wpdb;
         $table = self::table();
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Custom plugin table.
         $n = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table WHERE user_id = %d AND starred = 1", $user_id));
         wp_cache_set($key, $n, self::CACHE_GROUP, 300);
-        return $n > 0;
+        return $n;
+    }
+
+    public static function any_starred_for_user($user_id) {
+        return self::count_starred_for_user($user_id) > 0;
     }
 }
