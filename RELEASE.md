@@ -1,6 +1,13 @@
 # Release Process
 
+## Branch model
+
+- `develop` — integration branch (the repo's default branch). Land all day-to-day work here.
+- `master` — release branch. **Pushing to `master` is what triggers a release and the WordPress.org deploy.** Pushing to `develop` does not.
+
 ## Pre-release
+
+Do this work on `develop`:
 
 1. Ensure all changes are merged into `develop`
 2. Update the version number in **all three** locations:
@@ -8,18 +15,27 @@
    - `readme.txt` — `Stable tag: X.Y.Z`
    - `readme.txt` — add a changelog entry under `== Changelog ==`
 3. Update `Tested up to` in `readme.txt` if WordPress has released a new version
+4. Commit and push `develop`
 
 ## Release
 
-1. Push `develop` to GitHub
+Promote `develop` to `master`:
 
-The GitHub Actions workflow handles everything from here:
+```bash
+git checkout master
+git merge --ff-only develop
+git push origin master
+```
+
+Pushing `master` triggers the **Release** workflow (`.github/workflows/release.yml`), which handles everything from here:
 
 - Detects the version from `user-notes.php`
 - Skips if a tag for that version already exists
 - Builds a zip excluding dev files
 - Creates a git tag (`vX.Y.Z`) and GitHub Release with auto-generated notes
 - Deploys to WordPress.org SVN (only if the GitHub Release succeeds)
+
+> A separate **Update wp.org assets** workflow (`.github/workflows/assets.yml`) also runs on push to `master`, but only when `.wordpress-org/**` or `readme.txt` are the *only* files changed — otherwise it defers to the release workflow.
 
 ## Post-release
 
